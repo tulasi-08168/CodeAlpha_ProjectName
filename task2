@@ -1,0 +1,48 @@
+# Step 1: Define fixed stock prices using a dictionary
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 2700,
+    "AMZN": 3300,
+    "MSFT": 310
+}
+
+# Step 2: Ask the user how many different stocks they want to input
+stocks = int(input("How many different stocks do you want to enter? "))
+
+# Step 3: Create a dictionary to store user's portfolio
+portfolio = {}
+
+# Step 4: Take stock name and quantity from user
+for i in range(stocks):
+    stock = input("Enter stock symbol: ").upper()
+    if stock not in stock_prices:
+        print(f"{stock} is not in the stock price list. Try again.")
+        continue
+    quantity = int(input(f"Enter quantity of {stock} shares: "))
+    portfolio[stock] = quantity
+
+# Step 5: Calculate total investment
+total_value = 0
+print("\nYour Portfolio Summary:")
+print("------------------------")
+
+for stock, quantity in portfolio.items():
+    price = stock_prices[stock]
+    investment = price * quantity
+    print(f"{stock}: {quantity} shares × ${price} = ${investment}")
+    total_value += investment
+
+print("------------------------")
+print(f"Total Investment Value: ${total_value}")
+# Step 6 (Optional): Save to file
+save = input("\nDo you want to save the result to a file? (yes/no): ").lower()
+if save == "yes":
+    with open("portfolio.txt", "w") as file:
+        file.write("Stock Portfolio Summary:\n")
+        for stock, quantity in portfolio.items():
+            price = stock_prices[stock]
+            investment = price * quantity
+            file.write(f"{stock}: {quantity} shares × ${price} = ${investment}\n")
+        file.write(f"\nTotal Investment Value: ${total_value}\n")
+    print("Portfolio saved to 'portfolio.txt'")
